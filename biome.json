@@ -1,0 +1,21 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "all": true
+        },
+        "include": [
+            "src/*.ts"
+        ]
+    },
+    "formatter": {
+        "indentStyle": "space",
+        "indentWidth": 2,
+        "lineEnding": "lf",
+        "lineWidth": 80,
+        "include": [
+            "src/*.ts"
+        ]
+    }
+}
