@@ -37,7 +37,7 @@ const submitTest = () => {
   };
   const payload = JSON.stringify({
     temperature: "0.4",
-    model: "llama-2-13b-chat",
+    model: "llama3",
     stream: true,
     messages: [
       {
