@@ -1,13 +1,13 @@
 import { FormData } from './libs/formdata/0.0.2/index.js';
 import { randomItem } from "./libs/k6-utils/1.4.0/index.js";
+import { username } from "./utils/usernameData";
 
 import { sleep } from "k6";
 import http from "k6/http";
 import { Rate } from "k6/metrics";
 
-import { username } from "./utils/usernameData.js";
 
-const BASE_URL = __ENV.BASE_URL || "http://localhost:3001/api";
+const BASE_URL = __ENV.BASE_URL || "http://backendgaia.dsta.gov.sg/api";
 
 const pdfFile = open("../dataset/foo.pdf", "b");
 
@@ -31,14 +31,14 @@ export const options = {
       executor: "constant-vus",
       exec: 'pdfUpload',
       vus: 20,
-      duration: '5m',
+      duration: '1m',
     },
-    general_chat_scenario: {
-      executor: "constant-vus",
-      exec: 'generalChat',
-      vus: 30,
-      duration: '5m',
-    },
+    // general_chat_scenario: {
+    //   executor: "constant-vus",
+    //   exec: 'generalChat',
+    //   vus: 30,
+    //   duration: '5m',
+    // },
   },
 };
 
@@ -58,16 +58,6 @@ function getChatId(userId: string): number {
   const result = JSON.parse(JSON.parse(JSON.stringify(res.body)));
   return result.chatId;
 }
-
-const getAuth = () => {
-  const options = {
-    headers: {
-      "x-auth-gaia": `DSTA\\${getUsername()}`,
-    },
-  };
-  const result = http.get(urls.auth, options);
-  authFailRate.add(result.status !== 200);
-};
 
 export function generalChat() {
   const testUser = getUsername();
